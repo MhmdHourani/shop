@@ -1,37 +1,46 @@
 // create new user with email and password in authintication and mobile and name in cloud
-$('#buttonForm').click((e) => {
-	// console.log(object);
-	let email = $('#email').val();
-	let password = $('#password').val();
-	e.preventDefault();
-	auth
-		.createUserWithEmailAndPassword(email, password)
-		.then((token) => {
-			token = token.user.l;
-			db.collection('UserInfo').add({
-				name: $('#name').val(),
-				email: $('#email').val(),
-				mobile: $('#mobile').val(),
+var SignUpViewModel = () => {
+	var self = this;
+
+	self.userName = ko.observable();
+	self.userPassword = ko.observable();
+	self.userEmail = ko.observable();
+	self.userMobile = ko.observable();
+
+	self.signup = () => {
+		console.log('signing up ' + self.userName());
+		auth
+			.createUserWithEmailAndPassword(self.userEmail(), self.userPassword())
+			.then((token) => {
+				token = token.user.l;
+				db.collection('UserInfo').add({
+					name: self.userName(),
+					email: self.userEmail(),
+					mobile: self.userMobile(),
+				});
+				setCookie('tokenFromFirebase', token);
+				self.userName = '';
+				self.userPassword = '';
+				self.userEmail = '';
+				self.userMobile = '';
+				window.location.replace('catalog-page.html');
+			})
+			.catch(function (error) {
+				// Handle Errors here.
+				var errorCode = error.code;
+				var errorMessage = error.message;
+				if (errorCode == 'auth/weak-password') {
+					alert('The password is too weak.');
+				} else {
+					alert(errorMessage);
+				}
+				console.log(error);
 			});
-			setCookie('tokenFromFirebase', token);
-			$('#name').val('');
-			$('#email').val('');
-			$('#password').val('');
-			$('#mobile').val('');
-			window.location.replace('catalog-page.html');
-		})
-		.catch(function (error) {
-			// Handle Errors here.
-			var errorCode = error.code;
-			var errorMessage = error.message;
-			if (errorCode == 'auth/weak-password') {
-				alert('The password is too weak.');
-			} else {
-				alert(errorMessage);
-			}
-			console.log(error);
-		});
-});
+	};
+};
+
+ko.applyBindings(new SignUpViewModel());
+/*
 
 // read the data from firebase firestore
 db.collection('UserInfo')
@@ -47,7 +56,7 @@ db.collection('UserInfo')
 
 ////////////////////////////////////////////////////////////
 // helper function
-
+*/
 function setCookie(cname, cvalue) {
 	document.cookie = cname + '=' + cvalue + ';' + ';path=/';
 }

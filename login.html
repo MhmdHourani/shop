@@ -41,7 +41,7 @@
 			const db = firebase.firestore();
 			const auth = firebase.auth();
 		</script>
-		<script src="./js/login.js" defer></script>
+		<script src="./js/loginViewModule.js" defer></script>
 	</head>
 
 	<body>
@@ -61,7 +61,7 @@
 				<div class="collapse navbar-collapse" id="navcol-1">
 					<ul class="nav navbar-nav ml-auto">
 						<li class="nav-item">
-							<a class="nav-link active" href="registration.html">Sing Up</a>
+							<a class="nav-link active" href="index.html">Sing Up</a>
 						</li>
 					</ul>
 				</div>
@@ -80,11 +80,21 @@
 					<form>
 						<div class="form-group">
 							<label for="email">Email</label
-							><input class="form-control item" type="email" id="email" />
+							><input
+								class="form-control item"
+								type="email"
+								id="email"
+								data-bind="value: userEmail"
+							/>
 						</div>
 						<div class="form-group">
 							<label for="password">Password</label
-							><input class="form-control" type="password" id="password" />
+							><input
+								class="form-control"
+								type="password"
+								id="password"
+								data-bind="value: userPassword"
+							/>
 						</div>
 						<div class="form-group">
 							<div class="form-check">
@@ -101,6 +111,7 @@
 							class="btn btn-primary btn-block"
 							type="submit"
 							id="buttonlogin"
+							data-bind="click: login"
 						>
 							Log In
 						</button>

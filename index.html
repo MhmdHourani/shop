@@ -41,7 +41,7 @@
 			const db = firebase.firestore();
 			const auth = firebase.auth();
 		</script>
-		<script src="./js/reg.js" defer></script>
+		<script src="./js/regViewModule.js" defer></script>
 	</head>
 
 	<body>
@@ -85,6 +85,7 @@
 								type="text"
 								id="name"
 								name="name"
+								data-bind="value: userName"
 							/>
 						</div>
 						<div class="form-group">
@@ -94,6 +95,7 @@
 								type="password"
 								id="password"
 								name="password"
+								data-bind="value: userPassword"
 							/>
 						</div>
 						<div class="form-group">
@@ -103,6 +105,7 @@
 								type="tel"
 								id="mobile"
 								name="mobile"
+								data-bind="value: userMobile"
 							/>
 						</div>
 						<div class="form-group">
@@ -112,12 +115,14 @@
 								type="email"
 								id="email"
 								name="email"
+								data-bind="value: userEmail"
 							/>
 						</div>
 						<button
 							class="btn btn-primary btn-block"
 							type="submit"
 							id="buttonForm"
+							data-bind="click: signup"
 						>
 							Sign Up
 						</button>
