@@ -1,14 +1,29 @@
 // create new user with email and password in authintication and mobile and name in cloud
-var SignUpViewModel = () => {
+var SignUpViewModel = function () {
 	var self = this;
 
-	self.userName = ko.observable();
-	self.userPassword = ko.observable();
-	self.userEmail = ko.observable();
-	self.userMobile = ko.observable();
+	self.userName = ko.observable('').extend({
+		required: true,
+		minLength: 3,
+	});
+	self.userPassword = ko.observable('').extend({
+		required: true,
+		minLength: 8,
+	});
+	self.userEmail = ko.observable('').extend({
+		required: true,
+		email: true,
+	});
+	self.userMobile = ko.observable('').extend({
+		required: true,
+		minLength: 6,
+	});
 
 	self.signup = () => {
-		console.log('signing up ' + self.userName());
+		var errors = ko.validation.group(self, { deep: true });
+		if (errors().length > 1) {
+			return;
+		}
 		auth
 			.createUserWithEmailAndPassword(self.userEmail(), self.userPassword())
 			.then((token) => {
@@ -38,8 +53,9 @@ var SignUpViewModel = () => {
 			});
 	};
 };
+var form = document.querySelector('#formId');
 
-ko.applyBindings(new SignUpViewModel());
+ko.applyBindings(new SignUpViewModel(), form);
 /*
 
 // read the data from firebase firestore

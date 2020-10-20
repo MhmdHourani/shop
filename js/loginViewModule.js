@@ -1,4 +1,4 @@
-var LoginViewModel = () => {
+var LoginViewModel = function () {
 	var self = this;
 
 	self.userEmail = ko.observable();
@@ -16,8 +16,8 @@ var LoginViewModel = () => {
 			});
 	};
 };
-
-ko.applyBindings(new LoginViewModel());
+var form = document.querySelector('#formId');
+ko.applyBindings(new LoginViewModel(), form);
 
 // heler function
 
