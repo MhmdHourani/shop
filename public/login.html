@@ -6,7 +6,7 @@
 			name="viewport"
 			content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
 		/>
-		<title>Register - Brand</title>
+		<title>Login - Brand</title>
 		<link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" />
 		<link
 			rel="stylesheet"
@@ -23,26 +23,25 @@
 		<link rel="stylesheet" href="assets/css/smoothproducts.css" />
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.1/knockout-latest.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/knockout-validation/2.0.4/knockout.validation.min.js"></script>
 		<script src="https://www.gstatic.com/firebasejs/7.24.0/firebase.js"></script>
 		<script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-auth.js"></script>
 		<script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-firestore.js"></script>
 		<script>
 			var firebaseConfig = {
-				apiKey: 'AIzaSyAE8RdckUQRX5iilHvT530exNs1Qjcw2s0',
-				authDomain: 'shoprozn.firebaseapp.com',
-				databaseURL: 'https://shoprozn.firebaseio.com',
-				projectId: 'shoprozn',
-				storageBucket: 'shoprozn.appspot.com',
-				messagingSenderId: '932835388890',
-				appId: '1:932835388890:web:daa810a4c0e14d9d5624e3',
-				measurementId: 'G-L9GSBP3HPW',
+				apiKey: 'AIzaSyCnxIY6xZz39f4ZalxgLimohuoKBxFhWCI',
+				authDomain: 'shopwebsite-e5a7b.firebaseapp.com',
+				databaseURL: 'https://shopwebsite-e5a7b.firebaseio.com',
+				projectId: 'shopwebsite-e5a7b',
+				storageBucket: 'shopwebsite-e5a7b.appspot.com',
+				messagingSenderId: '647207238478',
+				appId: '1:647207238478:web:6db311ae29e9169368fc1f',
+				measurementId: 'G-GJYWH66EZE',
 			};
 			firebase.initializeApp(firebaseConfig);
 			const db = firebase.firestore();
 			const auth = firebase.auth();
 		</script>
-		<script src="./js/regViewModule.js" defer type="module"></script>
+		<script src="./js/loginViewModule.js" defer></script>
 	</head>
 
 	<body>
@@ -62,17 +61,17 @@
 				<div class="collapse navbar-collapse" id="navcol-1">
 					<ul class="nav navbar-nav ml-auto">
 						<li class="nav-item">
-							<a class="nav-link" href="login.html">Login</a>
+							<a class="nav-link active" href="index.html">Sing Up</a>
 						</li>
 					</ul>
 				</div>
 			</div>
 		</nav>
-		<main class="page registration-page">
+		<main class="page login-page">
 			<section class="clean-block clean-form dark">
 				<div class="container">
 					<div class="block-heading">
-						<h2 class="text-info">Registration</h2>
+						<h2 class="text-info">Log In</h2>
 						<p>
 							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam
 							urna, dignissim nec auctor in, mattis vitae leo.
@@ -80,52 +79,41 @@
 					</div>
 					<form id="formId">
 						<div class="form-group">
-							<label for="name">Name</label
-							><input
-								class="form-control item"
-								type="text"
-								id="name"
-								name="name"
-								data-bind="value: userName"
-							/>
-						</div>
-						<div class="form-group">
-							<label for="password">Password</label
-							><input
-								class="form-control item"
-								type="password"
-								id="password"
-								name="password"
-								data-bind="value: userPassword"
-							/>
-						</div>
-						<div class="form-group">
-							<label for="mobile">Mobile Number</label
-							><input
-								class="form-control item"
-								type="tel"
-								id="mobile"
-								name="mobile"
-								data-bind="value: userMobile"
-							/>
-						</div>
-						<div class="form-group">
 							<label for="email">Email</label
 							><input
 								class="form-control item"
 								type="email"
 								id="email"
-								name="email"
 								data-bind="value: userEmail"
 							/>
+						</div>
+						<div class="form-group">
+							<label for="password">Password</label
+							><input
+								class="form-control"
+								type="password"
+								id="password"
+								data-bind="value: userPassword"
+							/>
+						</div>
+						<div class="form-group">
+							<div class="form-check">
+								<input
+									class="form-check-input"
+									type="checkbox"
+									id="checkbox"
+								/><label class="form-check-label" for="checkbox"
+									>Remember me</label
+								>
+							</div>
 						</div>
 						<button
 							class="btn btn-primary btn-block"
 							type="submit"
-							id="buttonForm"
-							data-bind="click: signup"
+							id="buttonlogin"
+							data-bind="click: login"
 						>
-							Sign Up
+							Log In
 						</button>
 					</form>
 				</div>

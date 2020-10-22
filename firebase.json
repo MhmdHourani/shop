@@ -1,0 +1,7 @@
+{
+	"hosting": {
+		"site": "shopwebsiterozn",
+		"public": "public",
+		"ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
+	}
+}
