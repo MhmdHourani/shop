@@ -17,13 +17,25 @@ const auth = firebase.auth();
 var SignUpViewModel = function () {
 	var self = this;
 
+	function checkLoginUser() {
+		alert('this is the alst');
+	}
+
 	self.userName = ko.observable('').extend({
-		required: true,
-		minLength: 3,
+		validation: {
+			message: 'Please Enter at least 6 charctar',
+			validator: (value) => {
+				return value.length > 6;
+			},
+		},
 	});
 	self.userPassword = ko.observable('').extend({
-		required: true,
-		minLength: 8,
+		validation: {
+			message: 'Please Enter at least 8 charctar',
+			validator: (value) => {
+				return value.length > 8;
+			},
+		},
 	});
 	self.userEmail = ko.observable('').extend({
 		required: true,
@@ -31,12 +43,13 @@ var SignUpViewModel = function () {
 	});
 	self.userMobile = ko.observable('').extend({
 		required: true,
-		minLength: 6,
+		minlength: 8,
 	});
 
 	self.signup = () => {
 		var errors = ko.validation.group(self, { deep: true });
 		if (errors().length > 1) {
+			errors.showAllMessages();
 			return;
 		}
 		var tag = genarateTag(self.userName(), self.userEmail());
@@ -51,13 +64,15 @@ var SignUpViewModel = function () {
 						mobile: self.userMobile(),
 						tag: tag,
 					})
-					.then((comingData) => {
+					.then(() => {
 						setCookie('tokenFromFirebase', token);
+						setCookie('tagForUser', tag);
+						setCookie('EmailForUser', self.userEmail());
 						self.userName = '';
 						self.userPassword = '';
 						self.userEmail = '';
 						self.userMobile = '';
-						window.location.replace('catalog-page.html');
+						window.location.replace('table.html');
 					});
 			})
 			.catch(function (error) {
@@ -73,8 +88,8 @@ var SignUpViewModel = function () {
 			});
 	};
 };
-var form = document.querySelector('#formId');
 
+var form = document.querySelector('#formId');
 ko.applyBindings(new SignUpViewModel(), form);
 /*
 

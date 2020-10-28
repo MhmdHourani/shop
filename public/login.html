@@ -23,6 +23,7 @@
 		<link rel="stylesheet" href="assets/css/smoothproducts.css" />
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.1/knockout-latest.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/knockout-validation/2.0.4/knockout.validation.min.js"></script>
 		<script src="https://www.gstatic.com/firebasejs/7.24.0/firebase.js"></script>
 		<script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-auth.js"></script>
 		<script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-firestore.js"></script>
@@ -62,13 +63,14 @@
 							urna, dignissim nec auctor in, mattis vitae leo.
 						</p>
 					</div>
-					<form id="formId">
+					<form id="formId" data-bind="submit: login">
 						<div class="form-group">
 							<label for="email">Email</label
 							><input
 								class="form-control item"
 								type="email"
 								id="email"
+								name="email"
 								data-bind="value: userEmail"
 							/>
 						</div>
@@ -78,6 +80,7 @@
 								class="form-control"
 								type="password"
 								id="password"
+								name="password"
 								data-bind="value: userPassword"
 							/>
 						</div>
@@ -92,14 +95,12 @@
 								>
 							</div>
 						</div>
-						<button
+						<input
 							class="btn btn-primary btn-block"
 							type="submit"
 							id="buttonlogin"
-							data-bind="click: login"
-						>
-							Log In
-						</button>
+						/>
+						<!-- data-bind="click: login" -->
 					</form>
 				</div>
 			</section>

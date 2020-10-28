@@ -63,7 +63,7 @@
 							urna, dignissim nec auctor in, mattis vitae leo.
 						</p>
 					</div>
-					<form id="formId">
+					<form id="formId" data-bind="submit: signup">
 						<div class="form-group">
 							<label for="name">Name</label
 							><input
@@ -104,14 +104,11 @@
 								data-bind="value: userEmail"
 							/>
 						</div>
-						<button
+						<input
 							class="btn btn-primary btn-block"
 							type="submit"
 							id="buttonForm"
-							data-bind="click: signup"
-						>
-							Sign Up
-						</button>
+						/><!-- data-bind="click: signup" -->
 					</form>
 				</div>
 			</section>
