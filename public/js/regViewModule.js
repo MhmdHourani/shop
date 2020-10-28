@@ -1,3 +1,18 @@
+// firebase api
+var firebaseConfig = {
+	apiKey: 'AIzaSyCnxIY6xZz39f4ZalxgLimohuoKBxFhWCI',
+	authDomain: 'shopwebsite-e5a7b.firebaseapp.com',
+	databaseURL: 'https://shopwebsite-e5a7b.firebaseio.com',
+	projectId: 'shopwebsite-e5a7b',
+	storageBucket: 'shopwebsite-e5a7b.appspot.com',
+	messagingSenderId: '647207238478',
+	appId: '1:647207238478:web:6db311ae29e9169368fc1f',
+	measurementId: 'G-GJYWH66EZE',
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+const auth = firebase.auth();
+
 // create new user with email and password in authintication and mobile and name in cloud
 var SignUpViewModel = function () {
 	var self = this;
@@ -24,21 +39,26 @@ var SignUpViewModel = function () {
 		if (errors().length > 1) {
 			return;
 		}
+		var tag = genarateTag(self.userName(), self.userEmail());
 		auth
 			.createUserWithEmailAndPassword(self.userEmail(), self.userPassword())
 			.then((token) => {
 				token = token.user.l;
-				db.collection('UserInfo').add({
-					name: self.userName(),
-					email: self.userEmail(),
-					mobile: self.userMobile(),
-				});
-				setCookie('tokenFromFirebase', token);
-				self.userName = '';
-				self.userPassword = '';
-				self.userEmail = '';
-				self.userMobile = '';
-				window.location.replace('catalog-page.html');
+				db.collection('UserInfo')
+					.add({
+						name: self.userName(),
+						email: self.userEmail(),
+						mobile: self.userMobile(),
+						tag: tag,
+					})
+					.then((comingData) => {
+						setCookie('tokenFromFirebase', token);
+						self.userName = '';
+						self.userPassword = '';
+						self.userEmail = '';
+						self.userMobile = '';
+						window.location.replace('catalog-page.html');
+					});
 			})
 			.catch(function (error) {
 				// Handle Errors here.
@@ -71,8 +91,24 @@ db.collection('UserInfo')
 	});
 
 ////////////////////////////////////////////////////////////
-// helper function
 */
+
+//////////////////////////////////
+// helper function
+
+// This finction to build a uniqe tag for every user and i use name and email and time
+function genarateTag(name, email) {
+	var tag = '';
+	var date = Date.now();
+	// to remove any space from user name
+	var name = name.toString().split(' ').join('');
+	// to get the first part from email before @
+	var email = email.toString().split('@');
+
+	tag += name + date + email[0];
+	return tag;
+}
+
 function setCookie(cname, cvalue) {
 	document.cookie = cname + '=' + cvalue + ';' + ';path=/';
 }
