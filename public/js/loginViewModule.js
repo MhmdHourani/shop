@@ -16,7 +16,7 @@ const auth = firebase.auth();
 // sign in to dasshbord
 var LoginViewModel = function () {
 	var self = this;
-	var username = '';
+	let username = '';
 	var result = [];
 
 	function checkLoginUser() {
@@ -41,6 +41,25 @@ var LoginViewModel = function () {
 								}
 							});
 						}
+						console.log('inside', username);
+					})
+					.then(() => {
+						$.ajax({
+							url:
+								'https://5508b86bac3a0a741a216ea7b9711895:c9643de4510f517efd6d240e08193574@loqtaps-dev.myshopify.com/admin/api/2020-10/orders.json',
+							type: 'GET',
+							crossDomain: true,
+							success: function (data) {
+								console.log(data);
+							},
+							error: function (error) {
+								console.log(error);
+							},
+							headers: {
+								'Access-Control-Allow-Origin': '*',
+							},
+						});
+
 						window.location.replace('table.html');
 					})
 					.catch((error) => {
@@ -52,6 +71,7 @@ var LoginViewModel = function () {
 		});
 	}
 	checkLoginUser();
+	console.log(username);
 
 	self.userEmail = ko.observable('').extend({
 		email: true,
@@ -73,7 +93,6 @@ var LoginViewModel = function () {
 			.signInWithEmailAndPassword(self.userEmail(), self.userPassword())
 			.then((token) => {
 				setCookie('TokenFromFirebase', token.user.l);
-				console.log(token.email);
 				// window.location.replace('table.html');
 			})
 			.catch((error) => {

@@ -135,31 +135,26 @@
 											<tr>
 												<th>Name</th>
 												<th>Position</th>
-												<th>Office</th>
-												<th>Age</th>
-												<th>Start date</th>
-												<th>Salary</th>
+												<th>count</th>
+												<th>date</th>
+												<th>Price</th>
 											</tr>
 										</thead>
 										<tbody>
-											<tr>
-												<td>Accountant</td>
-												<td>Tokyo</td>
-												<td>33</td>
-												<td>2008/11/28</td>
-												<td>$162,700</td>
+											<tr data-bind="foreach: orders">
+												<td><span data-bind="text: ordername"></span></td>
+												<td>
+													<span data-bind="text: orderPosition"></span>
+												</td>
+												<td>
+													<span data-bind="text: orderCount"></span>
+												</td>
+												<td><span data-bind="text: orderDate"></span></td>
+												<td>
+													<span data-bind="text: orderprice"></span>
+												</td>
 											</tr>
 										</tbody>
-										<tfoot>
-											<tr>
-												<td><strong>Name</strong></td>
-												<td><strong>Position</strong></td>
-												<td><strong>Office</strong></td>
-												<td><strong>Age</strong></td>
-												<td><strong>Start date</strong></td>
-												<td><strong>Salary</strong></td>
-											</tr>
-										</tfoot>
 									</table>
 								</div>
 								<div class="row">

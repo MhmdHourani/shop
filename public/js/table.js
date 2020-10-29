@@ -16,75 +16,9 @@ const auth = firebase.auth();
 
 var tableViewModule = function () {
 	var self = this;
-	var result = [];
 	var username = getCookie('userNameShopify');
 
-	// async function man() {
-	// 	auth.onAuthStateChanged((user) => {
-	// 		if (user) {
-	// 			var email = user.email;
-	// 			db.collection('UserInfo')
-	// 				.get()
-	// 				.then((comingData) => {
-	// 					comingData.docs.forEach((oneData) => {
-	// 						result.push(oneData.data());
-	// 					});
-	// 					if (result.length > 0) {
-	// 						result.forEach((data) => {
-	// 							console.log(data);
-	// 							if ((data.email = email)) {
-	// 								username = data.name;
-	// 							} else {
-	// 								username = 'this is not';
-	// 							}
-	// 						});
-	// 					}
-	// 				})
-	// 				.catch((error) => {
-	// 					console.log(error);
-	// 				});
-	// 		}
-	// 	});
-	// 	try {
-	// 		console.log('this is in try', username, 'this');
-	// 	} catch (error) {
-	// 		console.log(error);
-	// 		console.log('this is in cathc');
-	// 		return;
-	// 	}
-	// }
-	// man();
-	// console.log(username);
-
 	self.userNameNavbar = ko.observable(username);
-
-	// function checkLoginUser() {
-	// 	auth.onAuthStateChanged((user) => {
-	// 		if (user) {
-	// 			var email = user.email;
-	// 			db.collection('UserInfo')
-	// 				.get()
-	// 				.then((comingData) => {
-	// 					comingData.docs.forEach((oneData) => {
-	// 						result.push(oneData.data());
-	// 					});
-	// 					if (result.length > 0) {
-	// 						result.forEach((data) => {
-	// 							if ((data.email = email)) {
-	// 								username = data.name;
-	// 							}
-	// 						});
-	// 					}
-	// 					console.log(username);
-	// 					console.log(self.userNameNavbar());
-	// 				})
-	// 				.catch((error) => {
-	// 					console.log(error);
-	// 				});
-	// 		}
-	// 	});
-	// }
-	// checkLoginUser();
 
 	self.logout = () => {
 		auth.signOut().then(() => {
@@ -93,29 +27,17 @@ var tableViewModule = function () {
 		});
 	};
 
-	// self.getcurrentuserdata = () => {
-	// getUser();
-	// function getUser() {
-	// 	var firstData = [];
-	// 	firebase.auth().onAuthStateChanged((data) => {
-	// 		if (data) {
-	// 			db.collection('UserInfo')
-	// 				.get()
-	// 				.then((comingData) => {
-	// 					comingData.docs.forEach((oneData) => {
-	// 						firstData.push(oneData.data());
-	// 					});
-	// 				})
-	// 				.catch((error) => {
-	// 					console.log(error);
-	// 				});
-	// 		} else {
-	// 			console.log('There no user signed in');
-	// 		}
-	// 	});
-	// }
+	var orders = [
+		{
+			ordername: 'bone',
+			orderPosition: 'new',
+			orderCount: 'order',
+			orderprice: '$34',
+			orderDate: '2020',
+		},
+	];
 
-	// };
+	self.orders = ko.observableArray(orders);
 };
 
 ko.applyBindings(new tableViewModule(), document.querySelector('#wrapper'));
