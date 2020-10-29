@@ -16,6 +16,42 @@ const auth = firebase.auth();
 // sign in to dasshbord
 var LoginViewModel = function () {
 	var self = this;
+	var username = '';
+	var result = [];
+
+	function checkLoginUser() {
+		auth.onAuthStateChanged((user) => {
+			if (user) {
+				console.log('user is sign in already');
+				var email = user.email;
+				db.collection('UserInfo')
+					.get()
+					.then((comingData) => {
+						comingData.docs.forEach((oneData) => {
+							result.push(oneData.data());
+						});
+						if (result.length > 0) {
+							result.forEach((data) => {
+								console.log(data);
+								if ((data.email = email)) {
+									username = data.name;
+									setCookie('userNameShopify', username);
+								} else {
+									username = 'this is not';
+								}
+							});
+						}
+						window.location.replace('table.html');
+					})
+					.catch((error) => {
+						console.log(error);
+					});
+			} else {
+				console.log('user in not sign in yet');
+			}
+		});
+	}
+	checkLoginUser();
 
 	self.userEmail = ko.observable('').extend({
 		email: true,
@@ -37,7 +73,8 @@ var LoginViewModel = function () {
 			.signInWithEmailAndPassword(self.userEmail(), self.userPassword())
 			.then((token) => {
 				setCookie('TokenFromFirebase', token.user.l);
-				window.location.replace('table.html');
+				console.log(token.email);
+				// window.location.replace('table.html');
 			})
 			.catch((error) => {
 				console.log(error);

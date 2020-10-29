@@ -17,10 +17,6 @@ const auth = firebase.auth();
 var SignUpViewModel = function () {
 	var self = this;
 
-	function checkLoginUser() {
-		alert('this is the alst');
-	}
-
 	self.userName = ko.observable('').extend({
 		validation: {
 			message: 'Please Enter at least 6 charctar',
@@ -57,6 +53,7 @@ var SignUpViewModel = function () {
 			.createUserWithEmailAndPassword(self.userEmail(), self.userPassword())
 			.then((token) => {
 				token = token.user.l;
+				console.log(token);
 				db.collection('UserInfo')
 					.add({
 						name: self.userName(),
@@ -65,6 +62,7 @@ var SignUpViewModel = function () {
 						tag: tag,
 					})
 					.then(() => {
+						console.log('we add to firebase firestore');
 						setCookie('tokenFromFirebase', token);
 						setCookie('tagForUser', tag);
 						setCookie('EmailForUser', self.userEmail());
@@ -108,6 +106,8 @@ db.collection('UserInfo')
 ////////////////////////////////////////////////////////////
 */
 
+
+
 //////////////////////////////////
 // helper function
 
@@ -121,7 +121,8 @@ function genarateTag(name, email) {
 	var email = email.toString().split('@');
 
 	tag += name + date + email[0];
-	return tag;
+	var newTag = tag.substring(0, 39);
+	return newTag;
 }
 
 function setCookie(cname, cvalue) {
